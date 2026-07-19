@@ -13,12 +13,39 @@ def clear():
 def get_operator(op):
         global first_num , operator
 
+        if result_label['text'] == '':
+             return
+
         first_num = int(result_label['text'])
         operator = op
         result_label.config(text='')
 
 def get_result():
-     global first_num , second_num , operator
+    global first_num , second_num , operator
+
+    if first_num is None or operator is None or result_label['text'] == '':
+         return
+
+    second_num = int(result_label['text'])
+
+    if operator == '+':
+          result_label.config(text = str(first_num + second_num))
+    
+    elif operator == '-':
+         result_label.config(text = str(first_num - second_num))
+    
+    elif operator == '*':
+         result_label.config(text = str(first_num * second_num))
+    
+    else:
+         
+         if second_num == 0:
+              result_label.config(text = "Error")
+         else:
+              result_label.config(text = str(round(first_num / second_num,2)))
+              
+         
+
 
     
 
@@ -49,7 +76,7 @@ btn_9 = Button(root , text = '9' , bg = '#00a65a' , fg = 'white' , width = 5 , h
 btn_9.grid(row = 1 , column = 2)
 btn_9.config(font = ('verdana',14))
 
-btn_add = Button(root , text = '+' , bg = '#00a65a' , fg = 'white' , width = 5 , height = 2 )
+btn_add = Button(root , text = '+' , bg = '#00a65a' , fg = 'white' , width = 5 , height = 2 , command =  lambda : get_operator('+'))
 btn_add.grid(row = 1 , column = 3)
 btn_add.config(font = ('verdana',14))
 
@@ -65,7 +92,7 @@ btn_6 = Button(root , text = '6' , bg = '#00a65a' , fg = 'white' , width = 5 , h
 btn_6.grid(row = 2 , column = 2)
 btn_6.config(font = ('verdana',14))
 
-btn_sub = Button(root , text = '-' , bg = '#00a65a' , fg = 'white' , width = 5 , height = 2)
+btn_sub = Button(root , text = '-' , bg = '#00a65a' , fg = 'white' , width = 5 , height = 2 , command =  lambda : get_operator('-'))
 btn_sub.grid(row = 2, column = 3)
 btn_sub.config(font = ('verdana',14))
 
@@ -82,7 +109,7 @@ btn_1 = Button(root , text = '1' , bg = '#00a65a' , fg = 'white' , width = 5 , h
 btn_1.grid(row = 3 , column = 2)
 btn_1.config(font = ('verdana',14))
 
-btn_mul = Button(root , text = '*' , bg = '#00a65a' , fg = 'white' , width = 5 , height = 2)
+btn_mul = Button(root , text = '*' , bg = '#00a65a' , fg = 'white' , width = 5 , height = 2 , command =  lambda : get_operator('*'))
 btn_mul.grid(row = 3 , column = 3)
 btn_mul.config(font = ('verdana',14))
 
@@ -96,11 +123,11 @@ btn_0.grid(row = 4 , column = 1)
 btn_0.config(font = ('verdana',14))
 
 
-btn_eq = Button(root , text = '=' , bg = '#00a65a' , fg = 'white' , width = 5 , height = 2)
+btn_eq = Button(root , text = '=' , bg = '#00a65a' , fg = 'white' , width = 5 , height = 2 , command = get_result)
 btn_eq.grid(row = 4 , column = 2)
 btn_eq.config(font = ('verdana',14))
 
-btn_div = Button(root , text = '/' , bg = '#00a65a' , fg = 'white' , width = 5 , height = 2)
+btn_div = Button(root , text = '/' , bg = '#00a65a' , fg = 'white' , width = 5 , height = 2 ,command =  lambda : get_operator('/'))
 btn_div.grid(row = 4 , column = 3)
 btn_div.config(font = ('verdana',14))
 root.mainloop()
